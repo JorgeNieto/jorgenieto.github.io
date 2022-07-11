@@ -5,7 +5,7 @@
     var honeypot;
 
     var fields = Object.keys(elements).filter(function(k) {
-      if (elements[k].name === "honeypot") {
+      if (elements[k].name === "g-recaptcha-response") {
         honeypot = elements[k].value;
         return false;
       }
@@ -56,8 +56,7 @@
     var formData = getFormData(form);
     var data = formData.data;
 
-    // If a honeypot field is filled, assume it was done so by a spam bot.
-    if (formData.honeypot) {
+    if (formData.honeypot == "") {
       return false;
     }
 
@@ -70,9 +69,10 @@
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
           form.reset();
+          grecaptcha.reset(document.getElementById('recaptcha')[0])
           var formElements = form.querySelector(".form-elements")
           if (formElements) {
-            formElements.style.display = "none"; // hide form
+            formElements.style.display = "none";
           }
           var thankYouMessage = form.querySelector(".thankyou_message");
           if (thankYouMessage) {

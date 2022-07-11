@@ -1,4 +1,4 @@
 User-agent: *
-Disallow: 
+Disallow: /.well-known/
 Disallow: /cgi-bin/
 Sitemap: jorgenietoaz.com/sitemap.xml
